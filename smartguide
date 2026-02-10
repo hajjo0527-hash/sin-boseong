@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신보성역 스마트 가이드</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --card: #1e1e1e;
+            --primary: #bb86fc;
+            --secondary: #03dac6;
+            --text: #e0e0e0;
+            --accent: #ff79c6;
+        }
+
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background: var(--bg); color: var(--text); margin: 0; line-height: 1.6;
+            padding-bottom: 30px;
+        }
+
+        header { 
+            background: var(--card); padding: 40px 20px; text-align: center; border-bottom: 1px solid #333;
+        }
+        header h1 { font-size: 1.6rem; margin: 0; color: var(--primary); }
+        header p { font-size: 0.85rem; color: #888; margin-top: 8px; }
+
+        .container { padding: 15px; max-width: 500px; margin: 0 auto; }
+
+        /* 탭 버튼 스타일 */
+        .tabs { display: flex; gap: 5px; margin-bottom: 20px; position: sticky; top: 10px; z-index: 100; }
+        .tab-btn { 
+            flex: 1; padding: 12px 5px; border: none; border-radius: 10px; 
+            background: rgba(42, 42, 42, 0.95); color: #fff; font-weight: bold; font-size: 0.85rem; cursor: pointer; backdrop-filter: blur(10px);
+        }
+        .tab-btn.active { background: var(--primary); color: #000; }
+
+        /* 카드 스타일 */
+        .info-card { 
+            background: var(--card); border-radius: 18px; padding: 18px; 
+            margin-bottom: 15px; border: 1px solid #2a2a2a;
+        }
+        .info-card h3 { margin: 0 0 10px; color: var(--secondary); font-size: 1.1rem; }
+        
+        /* 지도 스타일 */
+        .map-container { 
+            width: 100%; height: 200px; background: #252525; 
+            border-radius: 12px; margin: 12px 0; overflow: hidden; 
+        }
+        .map-container iframe { 
+            width: 100%; height: 100%; border: 0; 
+            filter: invert(90%) hue-rotate(180deg) brightness(0.9);
+        }
+
+        /* 목록 아이템 */
+        .list-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #2a2a2a; text-decoration: none; color: inherit;
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item h4 { margin: 0; font-size: 1rem; color: #fff; }
+        .list-item p { margin: 4px 0 0; font-size: 0.8rem; color: #888; }
+        .rating { color: #ffb86c; font-size: 0.85rem; margin-left: 5px; }
+        .arrow { color: var(--primary); }
+
+        .cta-btn { 
+            display: block; text-align: center; padding: 15px; 
+            background: linear-gradient(135deg, var(--primary), #9a66ff); 
+            color: #000; border-radius: 12px; text-decoration: none; font-weight: bold; margin-top: 10px;
+        }
+
+        footer { text-align: center; padding: 30px; color: #555; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>📍 신보성역 스마트 가이드</h1>
+    <p>전남 보성군 보성읍 우산길 75-16</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tour')">🏞️ 관광</button>
+        <button class="tab-btn" onclick="switchTab('food')">🍴 맛집(4.0+)</button>
+        <button class="tab-btn" onclick="switchTab('bus')">🚌 교통</button>
+    </div>
+
+    <div id="tour-content" class="tab-content">
+        <div class="info-card">
+            <h3>📍 신보성역 위치</h3>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3278.4716766467!2d127.0683!3d34.7645!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzTCsDQ1JzUyLjIiTiAxMjfCsDA0JDA1LjkiRQ!5e0!3m2!1sko!2skr!4v1700000000000" 
+                    allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+            <p style="font-size: 0.85rem;">보성읍 우산길 인근의 신설역 지점입니다.</p>
+        </div>
+
+        <div class="info-card">
+            <a href="https://www.google.com/maps/search/대한다원" target="_blank" class="list-item">
+                <div><h4>🍃 대한다원 (보성녹차밭)</h4><p>차량 12분 | 평점 4.3</p></div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.google.com/maps/search/율포솔밭해수욕장" target="_blank" class="list-item">
+                <div><h4>🌊 율포솔밭해수욕장</h4><p>차량 22분 | 평점 4.2</p></div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.google.com/maps/search/득량역+추억의거리" target="_blank" class="list-item">
+                <div><h4>📜 득량역 추억의 거리</h4><p>기차 10분 | 레트로 감성</p></div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="food-content" class="tab-content" style="display:none;">
+        <div class="info-card">
+            <h3>🍴 엄선된 지역 맛집</h3>
+            <a href="https://www.google.com/maps/search/보성+한끼" target="_blank" class="list-item">
+                <div><h4>🍱 한끼 <span class="rating">⭐ 4.9</span></h4><p>정갈한 한식 가정식</p></div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.google.com/maps/search/보성+신토불이가든" target="_blank" class="list-item">
+                <div><h4>🥘 신토불이가든 <span class="rating">⭐ 4.5</span></h4><p>현지인 추천 맛집</p></div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.google.com/maps/search/보성+녹차떡갈비원조" target="_blank" class="list-item">
+                <div><h4>🍖 보성녹차떡갈비 <span class="rating">⭐ 4.1</span></h4><p>보성 대표 별미</p></div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.google.com/maps/search/보성+청마루" target="_blank" class="list-item">
+                <div><h4>🍚 청마루식당 <span class="rating">⭐ 4.4</span></h4><p>든든한 한식 한 상</p></div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="bus-content" class="tab-content" style="display:none;">
+        <div class="info-card">
+            <h3>🚏 가장 가까운 정류장</h3>
+            <h4>내현정류장 / 우산정류장</h4>
+            <p style="font-size: 0.9rem;">역 입구 도로변 위치. 읍내 및 녹차밭 방향 버스 정차</p>
+            <a href="https://m.map.naver.com/bus/station.naver?stationId=513257" target="_blank" class="cta-btn">실시간 버스 도착 확인</a>
+        </div>
+        <div class="info-card">
+            <h3>🚕 택시 호출</h3>
+            <div class="list-item" onclick="location.href='tel:061-852-2525'">
+                <div><h4>보성 콜택시</h4><p>061-852-2525 (클릭 시 연결)</p></div>
+                <span class="arrow">📞</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2026 신보성역 가이드 | Created by Gemini
+</footer>
+
+<script>
+    function switchTab(type) {
+        // 모든 컨텐츠 숨기기
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.style.display = 'none';
+        });
+        // 선택한 컨텐츠 보이기
+        document.getElementById(type + '-content').style.display = 'block';
+        
+        // 버튼 활성화 상태 변경
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.currentTarget.classList.add('active');
+        
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
